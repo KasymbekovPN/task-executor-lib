@@ -1,4 +1,4 @@
-package taskExecutorLib.taskSeeds;
+package taskExecutorLib.seeds;
 
 import java.util.Collections;
 import java.util.HashMap;

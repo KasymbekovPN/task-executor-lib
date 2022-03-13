@@ -1,11 +1,10 @@
-package taskExecutorLib.taskSeeds;
+package taskExecutorLib.seeds;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Collections;
 import java.util.Map;
 
 public class TaskSeedImplTest {

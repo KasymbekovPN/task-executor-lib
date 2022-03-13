@@ -1,4 +1,4 @@
-package taskExecutorLib.taskSeeds;
+package taskExecutorLib.seeds;
 
 import java.util.Map;
 

@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.kpn'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+ext{
+    set('assertjVersion', '3.22.0')
+    set('junitJupiterVersion', '5.8.2')
+}
+
+dependencies {
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+}
+
+test {
+    useJUnitPlatform()
+}

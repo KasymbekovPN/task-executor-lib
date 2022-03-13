@@ -12,7 +12,6 @@ import taskExecutorLib.seeds.TaskSeedImpl;
 import taskExecutorLib.tasks.Task;
 
 public class TaskCreatorImplTest {
-    
     private static final int INT_VALUE = 123;
     private static final String STR_VALUE = "some.string";
     private static final List<String> FLOAT_LIST_VALUE = List.of("1", "2", "3");

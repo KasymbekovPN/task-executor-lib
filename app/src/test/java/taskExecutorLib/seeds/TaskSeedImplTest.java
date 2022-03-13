@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Map;
 
 public class TaskSeedImplTest {
-    
     private static final String KEY = "key";
     private static final String VALUE = "value";
 

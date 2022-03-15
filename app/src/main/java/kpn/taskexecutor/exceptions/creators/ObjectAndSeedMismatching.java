@@ -1,4 +1,4 @@
-package exceptions.creators;
+package kpn.taskexecutor.exceptions.creators;
 
 
 public class ObjectAndSeedMismatching extends Exception {

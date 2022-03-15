@@ -1,4 +1,4 @@
-package lib.seeds;
+package kpn.taskexecutor.lib.seeds;
 
 import java.util.Map;
 

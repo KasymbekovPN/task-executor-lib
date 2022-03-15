@@ -1,8 +1,10 @@
-package lib.seeds;
+package kpn.taskexecutor.lib.seeds;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import kpn.taskexecutor.lib.seeds.Seed;
+import kpn.taskexecutor.lib.seeds.SeedImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

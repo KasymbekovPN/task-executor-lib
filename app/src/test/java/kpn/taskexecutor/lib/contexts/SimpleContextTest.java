@@ -1,11 +1,12 @@
-package lib.contexts;
+package kpn.taskexecutor.lib.contexts;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
 import org.junit.jupiter.api.Test;
 
-import exceptions.contexts.ContextPropertyNonExist;
+import kpn.taskexecutor.exceptions.contexts.ContextPropertyNonExist;
+import kpn.taskexecutor.lib.contexts.SimpleContext;
 
 public class SimpleContextTest {
     

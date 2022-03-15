@@ -1,4 +1,4 @@
-package lib.creators;
+package kpn.taskexecutor.lib.creators;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import exceptions.creators.FailureOnTaskCreation;
-import exceptions.creators.ObjectAndSeedMismatching;
-import exceptions.creators.ObjectSettingFailure;
-import lib.seeds.Seed;
-import lib.tasks.Task;
+import kpn.taskexecutor.exceptions.creators.FailureOnTaskCreation;
+import kpn.taskexecutor.exceptions.creators.ObjectAndSeedMismatching;
+import kpn.taskexecutor.exceptions.creators.ObjectSettingFailure;
+import kpn.taskexecutor.lib.seeds.Seed;
+import kpn.taskexecutor.lib.tasks.Task;
 
 public class CreatorImpl implements Creator{
 

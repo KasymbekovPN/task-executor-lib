@@ -1,9 +1,9 @@
-package lib.contexts;
+package kpn.taskexecutor.lib.contexts;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import exceptions.contexts.ContextPropertyNonExist;
+import kpn.taskexecutor.exceptions.contexts.ContextPropertyNonExist;
 
 public class SimpleContext implements Context {
 
@@ -20,7 +20,7 @@ public class SimpleContext implements Context {
             return storage.get(property);
         }
 
-        throw new ContextPropertyNonExist(String.format("Context doesn't contain property %s", property));
+        throw createException(property);
     }
 
     @Override
@@ -29,6 +29,10 @@ public class SimpleContext implements Context {
             return type.cast(storage.get(property));
         }
         
-        throw new ContextPropertyNonExist(String.format("Context doesn't contain property %s", property));
+        throw createException(property);
+    }
+
+    private ContextPropertyNonExist createException(String property) {
+        return new ContextPropertyNonExist(String.format("Context doesn't contain property %s", property));
     }
 }

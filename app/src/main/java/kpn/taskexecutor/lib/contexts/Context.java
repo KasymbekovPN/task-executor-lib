@@ -1,6 +1,6 @@
-package lib.contexts;
+package kpn.taskexecutor.lib.contexts;
 
-import exceptions.contexts.ContextPropertyNonExist;
+import kpn.taskexecutor.exceptions.contexts.ContextPropertyNonExist;
 
 public interface Context {
     void put(String property, Object value);

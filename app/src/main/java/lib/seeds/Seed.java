@@ -1,8 +1,8 @@
-package taskExecutorLib.seeds;
+package lib.seeds;
 
 import java.util.Map;
 
-public interface TaskSeed {
+public interface Seed {
     Class<?> getType();
     Map<String, Object> getFields();
 }

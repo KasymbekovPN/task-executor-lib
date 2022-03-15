@@ -1,10 +1,10 @@
-package taskExecutorLib.seeds;
+package lib.seeds;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TaskSeedImpl implements TaskSeed {
+public class SeedImpl implements Seed {
 
     private final Class<?> type;
     private final Map<String, Object> fields;
@@ -13,7 +13,7 @@ public class TaskSeedImpl implements TaskSeed {
         return new Builder();
     }
 
-    private TaskSeedImpl(Class<?> type, Map<String, Object> fields){
+    private SeedImpl(Class<?> type, Map<String, Object> fields){
         this.type = type;
         this.fields = Collections.unmodifiableMap(fields);
     }
@@ -43,8 +43,8 @@ public class TaskSeedImpl implements TaskSeed {
             return this;
         }
 
-        public TaskSeed build(){
-            return new TaskSeedImpl(type, fields);
+        public Seed build(){
+            return new SeedImpl(type, fields);
         }
     }
 }

@@ -1,4 +1,4 @@
-package taskExecutorLib.creators;
+package lib.creators;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,13 +9,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import taskExecutorLib.seeds.TaskSeed;
-import taskExecutorLib.tasks.Task;
+import exceptions.creators.FailureOnTaskCreation;
+import exceptions.creators.ObjectAndSeedMismatching;
+import exceptions.creators.ObjectSettingFailure;
+import lib.seeds.Seed;
+import lib.tasks.Task;
 
-public class TaskCreatorImpl implements TaskCreator{
+public class CreatorImpl implements Creator{
 
     @Override
-    public Task create(TaskSeed seed) throws TaskCreationMismatchingExeption, TaskCreationContructionException, TaskCreationSettingExeption {
+    public Task create(Seed seed) throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure {
         Map<String, String> expectedSetterNames = createExpectedSetterNames(seed);
         Map<String, Method> setterMethods = getSetterMethods(seed, expectedSetterNames);
         Task task = createTask(seed);
@@ -23,17 +26,17 @@ public class TaskCreatorImpl implements TaskCreator{
         return task;
     }
 
-    private Task createTask(TaskSeed seed) throws TaskCreationContructionException {
+    private Task createTask(Seed seed) throws FailureOnTaskCreation {
         try {
             return (Task) seed.getType().getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
-            throw new TaskCreationContructionException(String.format("Fail attempt of task construction : %s", seed.getType()));
+            throw new FailureOnTaskCreation(String.format("Fail attempt of task construction : %s", seed.getType()));
         }
     }
 
-    private Map<String, String> createExpectedSetterNames(TaskSeed seed) {
+    private Map<String, String> createExpectedSetterNames(Seed seed) {
         Map<String, Object> fields = seed.getFields();
 
         Map<String, String> result = new HashMap<>();
@@ -50,7 +53,7 @@ public class TaskCreatorImpl implements TaskCreator{
         return  newBegin + fieldName.substring(1);
     }
 
-    private Map<String, Method> getSetterMethods(TaskSeed seed, Map<String, String> expectedSetterNames) throws TaskCreationMismatchingExeption{
+    private Map<String, Method> getSetterMethods(Seed seed, Map<String, String> expectedSetterNames) throws ObjectAndSeedMismatching{
         Map<String, Method> methods = Arrays
             .stream(seed.getType().getDeclaredMethods())
             .collect(Collectors.toMap(Method::getName, k -> k));
@@ -67,13 +70,13 @@ public class TaskCreatorImpl implements TaskCreator{
         }
 
         if (!absentMethodNames.isEmpty()){
-            throw new TaskCreationMismatchingExeption(String.format("Some methods are absent : %s", absentMethodNames));
+            throw new ObjectAndSeedMismatching(String.format("Some methods are absent : %s", absentMethodNames));
         }
 
         return result;
     }
 
-    private void fillTask(Task task, Map<String, Method> setterMethods, TaskSeed seed) throws TaskCreationSettingExeption {
+    private void fillTask(Task task, Map<String, Method> setterMethods, Seed seed) throws ObjectSettingFailure {
         Map<String, Object> fields = seed.getFields();
         Set<String> failSetterNames = new HashSet<>();
         for (Map.Entry<String, Method> entry : setterMethods.entrySet()) {
@@ -87,7 +90,7 @@ public class TaskCreatorImpl implements TaskCreator{
         }
 
         if (!failSetterNames.isEmpty()){
-            throw new TaskCreationSettingExeption(String.format("Setting fail : %s", failSetterNames));
+            throw new ObjectSettingFailure(String.format("Setting fail : %s", failSetterNames));
         }
     }
 }

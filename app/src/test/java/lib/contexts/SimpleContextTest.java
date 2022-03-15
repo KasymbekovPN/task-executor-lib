@@ -1,9 +1,11 @@
-package taskExecutorLib.contexts;
+package lib.contexts;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
 import org.junit.jupiter.api.Test;
+
+import exceptions.contexts.ContextPropertyNonExist;
 
 public class SimpleContextTest {
     
@@ -15,11 +17,11 @@ public class SimpleContextTest {
         Throwable throwable = catchThrowable(() -> {
             new SimpleContext().get(NON_EXIST_PROPERTY);
         });
-        assertThat(throwable).isInstanceOf(PropertyNonExist.class);
+        assertThat(throwable).isInstanceOf(ContextPropertyNonExist.class);
     }
 
     @Test
-    public void shouldCheckGettingAsObject() throws PropertyNonExist{
+    public void shouldCheckGettingAsObject() throws ContextPropertyNonExist{
         SimpleContext context = new SimpleContext();
         TestObject expctedObject = new TestObject();
         context.put(PROPERTY, expctedObject);
@@ -33,11 +35,11 @@ public class SimpleContextTest {
         Throwable throwable = catchThrowable(() -> {
             new SimpleContext().get(NON_EXIST_PROPERTY, TestObject.class);
         });
-        assertThat(throwable).isInstanceOf(PropertyNonExist.class);
+        assertThat(throwable).isInstanceOf(ContextPropertyNonExist.class);
     }
 
     @Test
-    public void shouldCheckGetting_castIsFail() throws PropertyNonExist{
+    public void shouldCheckGetting_castIsFail() throws ContextPropertyNonExist{
         TestObject expctedObject = new TestObject();
         SimpleContext context = new SimpleContext();
         context.put(PROPERTY, expctedObject);
@@ -49,7 +51,7 @@ public class SimpleContextTest {
     }
 
     @Test
-    public void shouldCheckGetting() throws PropertyNonExist{
+    public void shouldCheckGetting() throws ContextPropertyNonExist{
         TestObject expctedObject = new TestObject();
         SimpleContext context = new SimpleContext();
         context.put(PROPERTY, expctedObject);

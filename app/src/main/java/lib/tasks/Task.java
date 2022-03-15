@@ -1,9 +1,8 @@
-package taskExecutorLib.tasks;
+package lib.tasks;
 
-import taskExecutorLib.contexts.Context;
+import lib.contexts.Context;
 
 public interface Task {
-    Object var = null;
     default void execute(Context context){}
     default boolean isContinuationPossible(){return false;}
 }

@@ -1,4 +1,4 @@
-package taskExecutorLib.creators;
+package lib.creators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -7,11 +7,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import taskExecutorLib.seeds.TaskSeed;
-import taskExecutorLib.seeds.TaskSeedImpl;
-import taskExecutorLib.tasks.Task;
+import exceptions.creators.FailureOnTaskCreation;
+import exceptions.creators.ObjectAndSeedMismatching;
+import exceptions.creators.ObjectSettingFailure;
+import lib.seeds.Seed;
+import lib.seeds.SeedImpl;
+import lib.tasks.Task;
 
-public class TaskCreatorImplTest {
+public class CreatorImplTest {
     private static final int INT_VALUE = 123;
     private static final String STR_VALUE = "some.string";
     private static final List<String> FLOAT_LIST_VALUE = List.of("1", "2", "3");
@@ -22,47 +25,47 @@ public class TaskCreatorImplTest {
 
     @Test
     public void shouldCheckTaskCreation_whenThereIsMismatching(){
-        TaskSeed seed = TaskSeedImpl.builder()
+        Seed seed = SeedImpl.builder()
             .type(TestTask.class)
             .field(NO_EXIST_FIELD, NO_EXIST_FIELD_VALUE)
             .build();
 
         Throwable throwable = catchThrowable(() -> {
-            TaskCreator creator = new TaskCreatorImpl();
+            Creator creator = new CreatorImpl();
             creator.create(seed);
         });
-        assertThat(throwable).isInstanceOf(TaskCreationMismatchingExeption.class);
+        assertThat(throwable).isInstanceOf(ObjectAndSeedMismatching.class);
     }
 
     @Test
     public void shouldCheckTaskCreation_whenTaskConstructionFail(){
-        TaskSeed seed = TaskSeedImpl.builder()
+        Seed seed = SeedImpl.builder()
             .type(TestTaskWithoutNoArgsCont.class)
             .build();
 
         Throwable throwable = catchThrowable(() -> {
-            TaskCreator creator = new TaskCreatorImpl();
+            Creator creator = new CreatorImpl();
             creator.create(seed);
         });
-        assertThat(throwable).isInstanceOf(TaskCreationContructionException.class);
+        assertThat(throwable).isInstanceOf(FailureOnTaskCreation.class);
     }
 
     @Test
     public void shouldCheckTaskCreation_whenSettingFail(){
-        TaskSeed seed = TaskSeedImpl.builder()
+        Seed seed = SeedImpl.builder()
             .type(TestTask.class)
             .field("floatListValue", "str")
             .build();
         
         Throwable throwable = catchThrowable(() -> {
-            new TaskCreatorImpl().create(seed);
+            new CreatorImpl().create(seed);
         });
-        assertThat(throwable).isInstanceOfAny(TaskCreationSettingExeption.class);
+        assertThat(throwable).isInstanceOfAny(ObjectSettingFailure.class);
     }
 
     @Test
-    public void shouldCheckTaskCreation() throws TaskCreationMismatchingExeption, TaskCreationContructionException, TaskCreationSettingExeption{
-        TaskSeed seed = TaskSeedImpl.builder()
+    public void shouldCheckTaskCreation() throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure{
+        Seed seed = SeedImpl.builder()
             .type(TestTask.class)
             .field("intValue", INT_VALUE)
             .field("strValue", STR_VALUE)
@@ -70,7 +73,7 @@ public class TaskCreatorImplTest {
             .field("objectValue", new ValueClass(X_VALUE, Y_VALUE))
             .build();
 
-        TaskCreator creator = new TaskCreatorImpl();
+        Creator creator = new CreatorImpl();
         Task task = creator.create(seed);
 
         assertThat(task.getClass()).isEqualTo(TestTask.class);

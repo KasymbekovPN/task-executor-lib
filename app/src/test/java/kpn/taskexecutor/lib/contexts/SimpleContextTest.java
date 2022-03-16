@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import org.junit.jupiter.api.Test;
 
 import kpn.taskexecutor.exceptions.contexts.ContextPropertyNonExist;
-import kpn.taskexecutor.lib.contexts.SimpleContext;
 
 public class SimpleContextTest {
     

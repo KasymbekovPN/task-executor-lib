@@ -2,15 +2,14 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group 'ru.kpn'
-version '1.0.2'
+version '1.0.3'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.assertj:assertj-core:3.21.0'
-
+    testImplementation 'org.assertj:assertj-core:3.21.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }

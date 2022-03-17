@@ -1,22 +1,31 @@
+// plugins {
+//     id 'java'
+// }
+
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group 'ru.kpn'
-version '1.0.1'
+version '1.0.2'
 
 repositories {
     mavenCentral()
 }
 
-ext{
-    set('assertjVersion', '3.22.0')
-    set('junitJupiterVersion', '5.8.2')
-}
+// ext{
+//     set('assertjVersion', '3.22.0')
+//     set('junitJupiterVersion', '5.8.2')
+// }
 
 dependencies {
-    testImplementation "org.assertj:assertj-core:$assertjVersion"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+    // testImplementation "org.assertj:assertj-core:$assertjVersion"
+    // testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    // testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+    implementation 'org.assertj:assertj-core:3.21.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {

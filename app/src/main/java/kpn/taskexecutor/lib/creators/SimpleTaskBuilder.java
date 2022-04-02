@@ -58,8 +58,8 @@ public class SimpleTaskBuilder implements TaskBuilder{
             .stream(seed.getType().getDeclaredMethods())
             .collect(Collectors.toMap(Method::getName, k -> k));
         HashMap<String, Method> result = new HashMap<>();
-        HashSet<String> absentMethodNames = new HashSet<>();
 
+        HashSet<String> absentMethodNames = new HashSet<>();
         for (Map.Entry<String, String> entry : expectedSetterNames.entrySet()) {
             String expectedMethodName = entry.getValue();
             if (methods.containsKey(expectedMethodName)){

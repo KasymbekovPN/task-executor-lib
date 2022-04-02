@@ -14,7 +14,7 @@ import kpn.taskexecutor.lib.seeds.Seed;
 import kpn.taskexecutor.lib.seeds.SeedImpl;
 import kpn.taskexecutor.lib.tasks.Task;
 
-public class CreatorImplTest {
+public class SimpleTaskBuilderTest {
     private static final int INT_VALUE = 123;
     private static final String STR_VALUE = "some.string";
     private static final List<String> FLOAT_LIST_VALUE = List.of("1", "2", "3");
@@ -31,8 +31,8 @@ public class CreatorImplTest {
             .build();
 
         Throwable throwable = catchThrowable(() -> {
-            Creator creator = new CreatorImpl();
-            creator.create(seed);
+            TaskBuilder creator = new SimpleTaskBuilder();
+            creator.build(seed);
         });
         assertThat(throwable).isInstanceOf(ObjectAndSeedMismatching.class);
     }
@@ -44,8 +44,8 @@ public class CreatorImplTest {
             .build();
 
         Throwable throwable = catchThrowable(() -> {
-            Creator creator = new CreatorImpl();
-            creator.create(seed);
+            TaskBuilder creator = new SimpleTaskBuilder();
+            creator.build(seed);
         });
         assertThat(throwable).isInstanceOf(FailureOnTaskCreation.class);
     }
@@ -58,7 +58,7 @@ public class CreatorImplTest {
             .build();
         
         Throwable throwable = catchThrowable(() -> {
-            new CreatorImpl().create(seed);
+            new SimpleTaskBuilder().build(seed);
         });
         assertThat(throwable).isInstanceOfAny(ObjectSettingFailure.class);
     }
@@ -73,8 +73,8 @@ public class CreatorImplTest {
             .field("objectValue", new ValueClass(X_VALUE, Y_VALUE))
             .build();
 
-        Creator creator = new CreatorImpl();
-        Task task = creator.create(seed);
+        TaskBuilder creator = new SimpleTaskBuilder();
+        Task task = creator.build(seed);
 
         assertThat(task.getClass()).isEqualTo(TestTask.class);
         TestTask testTask = (TestTask) task;

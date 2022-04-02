@@ -15,10 +15,10 @@ import kpn.taskexecutor.exceptions.creators.ObjectSettingFailure;
 import kpn.taskexecutor.lib.seeds.Seed;
 import kpn.taskexecutor.lib.tasks.Task;
 
-public class CreatorImpl implements Creator{
+public class SimpleTaskBuilder implements TaskBuilder{
 
     @Override
-    public Task create(Seed seed) throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure {
+    public Task build(Seed seed) throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure {
         Map<String, String> expectedSetterNames = createExpectedSetterNames(seed);
         Map<String, Method> setterMethods = getSetterMethods(seed, expectedSetterNames);
         Task task = createTask(seed);
@@ -26,7 +26,7 @@ public class CreatorImpl implements Creator{
         return task;
     }
 
-    private Task createTask(Seed seed) throws FailureOnTaskCreation {
+    protected Task createTask(Seed seed) throws FailureOnTaskCreation {
         try {
             return (Task) seed.getType().getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
@@ -36,7 +36,7 @@ public class CreatorImpl implements Creator{
         }
     }
 
-    private Map<String, String> createExpectedSetterNames(Seed seed) {
+    protected Map<String, String> createExpectedSetterNames(Seed seed) {
         Map<String, Object> fields = seed.getFields();
 
         Map<String, String> result = new HashMap<>();
@@ -48,12 +48,12 @@ public class CreatorImpl implements Creator{
         return result;
     }
 
-    private String createSetterName(String fieldName) {
+    protected String createSetterName(String fieldName) {
         String newBegin = "set" + String.valueOf(fieldName.charAt(0)).toUpperCase();
         return  newBegin + fieldName.substring(1);
     }
 
-    private Map<String, Method> getSetterMethods(Seed seed, Map<String, String> expectedSetterNames) throws ObjectAndSeedMismatching{
+    protected Map<String, Method> getSetterMethods(Seed seed, Map<String, String> expectedSetterNames) throws ObjectAndSeedMismatching{
         Map<String, Method> methods = Arrays
             .stream(seed.getType().getDeclaredMethods())
             .collect(Collectors.toMap(Method::getName, k -> k));
@@ -76,7 +76,7 @@ public class CreatorImpl implements Creator{
         return result;
     }
 
-    private void fillTask(Task task, Map<String, Method> setterMethods, Seed seed) throws ObjectSettingFailure {
+    protected void fillTask(Task task, Map<String, Method> setterMethods, Seed seed) throws ObjectSettingFailure {
         Map<String, Object> fields = seed.getFields();
         Set<String> failSetterNames = new HashSet<>();
         for (Map.Entry<String, Method> entry : setterMethods.entrySet()) {

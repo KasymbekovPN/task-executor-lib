@@ -13,7 +13,7 @@ import kpn.taskexecutor.exceptions.creators.ObjectAndSeedMismatching;
 import kpn.taskexecutor.exceptions.creators.ObjectSettingFailure;
 import kpn.taskexecutor.lib.contexts.Context;
 import kpn.taskexecutor.lib.contexts.SimpleContext;
-import kpn.taskexecutor.lib.creators.CreatorImpl;
+import kpn.taskexecutor.lib.creators.SimpleTaskBuilder;
 import kpn.taskexecutor.lib.generators.Generator;
 import kpn.taskexecutor.lib.seeds.Seed;
 import kpn.taskexecutor.lib.seeds.SeedImpl;
@@ -23,7 +23,7 @@ public class SimpleExecutorTest {
     
     @Test
     public void shouldCheckFailExecution() throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure{
-        Executor executor = new SimpleExecutor(new CreatorImpl(), new SimpleContext());
+        Executor executor = new SimpleExecutor(new SimpleTaskBuilder(), new SimpleContext());
         executor.addGenerator(new TestFailTaskGenerator());
         Boolean executionResult = executor.execute();
         assertThat(executionResult).isFalse();
@@ -56,7 +56,7 @@ public class SimpleExecutorTest {
         Map<String, Integer> data = Map.of(key0, 1, key1, 2);
 
         SimpleContext context = new SimpleContext();
-        Executor executor = new SimpleExecutor(new CreatorImpl(), context);
+        Executor executor = new SimpleExecutor(new SimpleTaskBuilder(), context);
         executor.addGenerator(new TestTaskGenerator(key0, data.get(key0)));
         executor.addGenerator(new TestTaskGenerator(key1, data.get(key1)));
 

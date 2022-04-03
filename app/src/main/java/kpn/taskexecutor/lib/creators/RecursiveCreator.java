@@ -6,7 +6,7 @@ import kpn.taskexecutor.exceptions.creators.ObjectSettingFailure;
 import kpn.taskexecutor.lib.seeds.Seed;
 import kpn.taskexecutor.lib.tasks.Task;
 
-//< TODO: rename
+//< todo - del
 public class RecursiveCreator implements TaskBuilder{
 
     @Override

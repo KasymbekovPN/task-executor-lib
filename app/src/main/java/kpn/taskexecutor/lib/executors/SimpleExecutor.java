@@ -8,18 +8,18 @@ import kpn.taskexecutor.exceptions.creators.FailureOnTaskCreation;
 import kpn.taskexecutor.exceptions.creators.ObjectAndSeedMismatching;
 import kpn.taskexecutor.exceptions.creators.ObjectSettingFailure;
 import kpn.taskexecutor.lib.contexts.Context;
-import kpn.taskexecutor.lib.creators.TaskBuilder;
+import kpn.taskexecutor.lib.creators.TaskConfigurer;
 import kpn.taskexecutor.lib.generators.Generator;
 import kpn.taskexecutor.lib.seeds.Seed;
 import kpn.taskexecutor.lib.tasks.Task;
 
 public class SimpleExecutor implements Executor{
 
-    private final TaskBuilder creator;
+    private final TaskConfigurer creator;
     private final Context context;
     private final Deque<Generator> generators = new ArrayDeque<>();
 
-    public SimpleExecutor(TaskBuilder creator, Context context) {
+    public SimpleExecutor(TaskConfigurer creator, Context context) {
         this.creator = creator;
         this.context = context;
     }
@@ -38,7 +38,7 @@ public class SimpleExecutor implements Executor{
             do {
                 maybeSeed = generator.getNextIfExist(context);
                 if (maybeSeed.isPresent()){
-                    Task task = creator.build(maybeSeed.get());
+                    Task task = creator.configure(maybeSeed.get());
                     task.execute(context);
                     success = task.isContinuationPossible();
                 }

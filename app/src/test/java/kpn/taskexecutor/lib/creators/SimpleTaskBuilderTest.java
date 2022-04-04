@@ -31,8 +31,8 @@ public class SimpleTaskBuilderTest {
             .build();
 
         Throwable throwable = catchThrowable(() -> {
-            TaskBuilder creator = new SimpleTaskBuilder();
-            creator.build(seed);
+            TaskConfigurer creator = new SimpleTaskBuilder();
+            creator.configure(seed);
         });
         assertThat(throwable).isInstanceOf(ObjectAndSeedMismatching.class);
     }
@@ -44,8 +44,8 @@ public class SimpleTaskBuilderTest {
             .build();
 
         Throwable throwable = catchThrowable(() -> {
-            TaskBuilder creator = new SimpleTaskBuilder();
-            creator.build(seed);
+            TaskConfigurer creator = new SimpleTaskBuilder();
+            creator.configure(seed);
         });
         assertThat(throwable).isInstanceOf(FailureOnTaskCreation.class);
     }
@@ -58,7 +58,7 @@ public class SimpleTaskBuilderTest {
             .build();
         
         Throwable throwable = catchThrowable(() -> {
-            new SimpleTaskBuilder().build(seed);
+            new SimpleTaskBuilder().configure(seed);
         });
         assertThat(throwable).isInstanceOfAny(ObjectSettingFailure.class);
     }
@@ -73,8 +73,8 @@ public class SimpleTaskBuilderTest {
             .field("objectValue", new ValueClass(X_VALUE, Y_VALUE))
             .build();
 
-        TaskBuilder creator = new SimpleTaskBuilder();
-        Task task = creator.build(seed);
+        TaskConfigurer creator = new SimpleTaskBuilder();
+        Task task = creator.configure(seed);
 
         assertThat(task.getClass()).isEqualTo(TestTask.class);
         TestTask testTask = (TestTask) task;

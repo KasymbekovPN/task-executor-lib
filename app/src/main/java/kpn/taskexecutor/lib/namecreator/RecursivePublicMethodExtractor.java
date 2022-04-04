@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//< rename -> DEfault...
 public class RecursivePublicMethodExtractor implements MethodExtractor {
 
     @Override

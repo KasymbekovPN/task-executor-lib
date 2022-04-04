@@ -16,10 +16,10 @@ import kpn.taskexecutor.lib.seeds.Seed;
 import kpn.taskexecutor.lib.tasks.Task;
 
 //< todo - del
-public class SimpleTaskBuilder implements TaskBuilder{
+public class SimpleTaskBuilder implements TaskConfigurer{
 
     @Override
-    public Task build(Seed seed) throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure {
+    public Task configure(Seed seed) throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure {
         Map<String, String> expectedSetterNames = createExpectedSetterNames(seed);
         Map<String, Method> setterMethods = getSetterMethods(seed, expectedSetterNames);
         Task task = createTask(seed);

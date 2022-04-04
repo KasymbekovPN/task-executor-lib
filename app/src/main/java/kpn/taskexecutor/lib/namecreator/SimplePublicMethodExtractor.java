@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+//< todo del
 public class SimplePublicMethodExtractor implements MethodExtractor {
 
     @Override

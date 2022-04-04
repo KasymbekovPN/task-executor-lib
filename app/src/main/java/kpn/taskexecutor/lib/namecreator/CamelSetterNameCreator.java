@@ -2,6 +2,7 @@ package kpn.taskexecutor.lib.namecreator;
 
 import java.util.function.UnaryOperator;
 
+//< rename -> DEfault...
 public class CamelSetterNameCreator implements UnaryOperator<String> {
 
     @Override

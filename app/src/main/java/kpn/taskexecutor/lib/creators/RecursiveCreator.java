@@ -7,10 +7,10 @@ import kpn.taskexecutor.lib.seeds.Seed;
 import kpn.taskexecutor.lib.tasks.Task;
 
 //< todo - del
-public class RecursiveCreator implements TaskBuilder{
+public class RecursiveCreator implements TaskConfigurer{
 
     @Override
-    public Task build(Seed seed) throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure {
+    public Task configure(Seed seed) throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure {
         // TODO Auto-generated method stub
         return null;
     }

@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+//< rename -> DEfault...
 public class CamelSetterNamesCreator implements Function<Set<String>, Map<String, String>> {
     
     private final UnaryOperator<String> creator;

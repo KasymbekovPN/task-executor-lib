@@ -25,8 +25,9 @@ public class SimpleExecutor implements Executor{
     }
 
     @Override
-    public void addGenerator(Generator generator) {
+    public Executor addGenerator(Generator generator) {
         generators.addLast(generator);
+        return this;
     }
 
     @Override

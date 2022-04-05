@@ -6,6 +6,6 @@ import kpn.taskexecutor.exceptions.creators.ObjectSettingFailure;
 import kpn.taskexecutor.lib.generators.Generator;
 
 public interface Executor {
-    void addGenerator(Generator generator);
+    Executor addGenerator(Generator generator);
     Boolean execute() throws ObjectAndSeedMismatching, FailureOnTaskCreation, ObjectSettingFailure; 
 }
